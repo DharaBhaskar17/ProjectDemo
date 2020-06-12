@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MemberComponent } from './member.component';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms'
 
 const routes: Routes = [
   {
@@ -14,8 +15,10 @@ const routes: Routes = [
   declarations: [MemberComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
-  exports : [RouterModule]
+  exports: [RouterModule]
 })
 export class MemberModule { }

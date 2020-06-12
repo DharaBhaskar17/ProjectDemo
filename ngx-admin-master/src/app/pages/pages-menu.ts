@@ -29,7 +29,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Wings',
-    //icon: 'keypad-outline',
+    icon: 'keypad-outline',
     link: '/pages/Wings',
   },
   {
