@@ -47,12 +47,13 @@ export class MemberComponent implements OnInit {
     const memberNamePattern = '[a-zA-Z]+';
     return this.formbulider.group({
       MemberName: ['', [Validators.required, Validators.pattern(memberNamePattern)]],
-      MemberPhoneNo: ['', [Validators.required, Validators.pattern(phoneNoPattern), Validators.minLength(10)]]
+      MemberPhoneNo: ['', [Validators.required, Validators.pattern(phoneNoPattern), Validators.maxLength(10)]]
     })
+    
   }
 
+
   SaveMember() {
-    debugger
     this.submitted = true;
     if (this.memberForm.invalid) {
       return;

@@ -1,58 +1,56 @@
 <div class="container">
     <div class="card" style="width:100%;">
         <div class="card-body">
-            <form [formGroup]="memberForm" (ngSubmit)="SaveMember()" class="form-inline">
+            <form [formGroup]="memberForm" class="form-inline">
                 <div class="row">
                     <div formArrayName="memberDetails" class="form-group row"
                         *ngFor="let memberData of memberForm.get('memberDetails')['controls']; let i = index;">
                         <div [formGroupName]="i">
-                            <div class="row">
+                            <div class="row col-12" style="margin-right: 0px; margin-left: 21px;">
                                 <div class="">
                                     <input type="text" placeholder="Member Name" formControlName="MemberName"
-                                        name="MemberName" class="form-control"
-                                        [ngClass]="{'is-invalid' : submitted && this.memberForm.controls.memberDetails.controls[i].controls.MemberName.errors}" />
-                                    <!-- <div *ngIf="submitted"class="invalid-feedback">
-                                        <div *ngIf="f.MemberName.errors.required">Name is required</div>
-                                    </div> -->
+                                        name="MemberName" class="form-control" autocomplete="off"
+                                        [ngClass]="{'is-invalid' : submitted && memberData.get('MemberName').errors}" />
 
-                                    <div class="requiredName"
-                                        *ngIf="submitted && this.memberForm.controls.memberDetails.controls[i].controls.MemberName.errors.required">
-                                        MemberName is required.
+                                    <div class="invalid-feedback"
+                                        *ngIf="submitted || memberData.get('MemberName').dirty || memberData.get('MemberName').touched">
+                                        <div *ngIf="memberData.get('MemberName').errors.required">
+                                            MemberName is required.</div>
                                     </div>
 
                                     <div class="invalid-feedback"
-                                        *ngIf="this.memberForm.controls.memberDetails.controls[i].controls.MemberName.errorserrors && (this.memberForm.controls.memberDetails.controls[0].controls.MemberPhoneNo.dirty || this.memberForm.controls.memberDetails.controls[0].controls.MemberPhoneNo.touched)">
-                                        <div
-                                            *ngIf="this.memberForm.controls.memberDetails.controls[0].controls.MemberPhoneNo.errors.pattern">
+                                        *ngIf="memberData.get('MemberName').dirty || memberData.get('MemberName').touched">
+                                        <div *ngIf="memberData.get('MemberName').errors.pattern">
                                             Name is only in letter.</div>
                                     </div>
                                 </div>
                                 <div class="">
                                     <input type="text" placeholder="Member Phone No" formControlName="MemberPhoneNo"
-                                        name="MemberPhoneNo" class="form-control"
-                                        [ngClass]="{'is-invalid' : submitted && this.memberForm.controls.memberDetails.controls[i].controls.MemberPhoneNo.errors}" />
+                                        name="MemberPhoneNo" class="form-control" autocomplete="off" maxlength="10"
+                                        [ngClass]="{'is-invalid' : submitted && memberData.get('MemberPhoneNo').errors}" />
 
-                                    <div class="requiredName"
-                                        *ngIf="submitted && this.memberForm.controls.memberDetails.controls[i].controls.MemberPhoneNo.errors.required">
+
+                                    <div class="invalid-feedback"
+                                        *ngIf="submitted && memberData.get('MemberPhoneNo').errors.required">
                                         Member Phone No is required.
                                     </div>
-                                    <!-- <div *ngIf="submitted && f.MemberPhoneNo.errors"
-                                        class="invalid-feedback">
-                                        <div *ngIf="f.MemberPhoneNo.errors.required">Name is required
+                                    <div class="invalid-feedback"
+                                        *ngIf="memberData.get('MemberPhoneNo').dirty || memberData.get('MemberPhoneNo').touched">
+                                        <div *ngIf="memberData.get('MemberPhoneNo').errors.pattern">
+                                            Only 10 Digit Allows 
                                         </div>
-                                    </div> -->
+                                    </div>
                                 </div>
-                                <br />
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-4">
-                        <button (click)="AddRow()" class="btn btn-primary">Add</button>
+                        <button (click)="AddRow()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
+                <br />
                 <div class="col-md-12">
-                    <button ng-disabled="rectiveForm.invalid" class="btn btn-primary">Submit</button>
+                    <button type="submit" (click)="SaveMember()" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
