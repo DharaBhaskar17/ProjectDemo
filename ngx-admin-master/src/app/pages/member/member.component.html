@@ -37,7 +37,7 @@
                                     <div class="invalid-feedback"
                                         *ngIf="memberData.get('MemberPhoneNo').dirty || memberData.get('MemberPhoneNo').touched">
                                         <div *ngIf="memberData.get('MemberPhoneNo').errors.pattern">
-                                            Only 10 Digit Allows 
+                                            Only 10 Digit Allows
                                         </div>
                                     </div>
                                 </div>
@@ -53,6 +53,25 @@
                     <button type="submit" (click)="SaveMember()" class="btn btn-primary">Submit</button>
                 </div>
             </form>
+            <br />
+            <br />
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!memberData || memberData.length == 0">
+                        <td colspan="2" style="text-align: center;">No Records Found</td>
+                    </tr>
+                    <tr *ngFor="let data of memberData">
+                        <td>{{data.MemberName}}</td>
+                        <td>{{data.MemberPhoneNo}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
