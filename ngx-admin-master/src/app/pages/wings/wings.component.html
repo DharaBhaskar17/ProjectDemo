@@ -1,1 +1,31 @@
-<p>wings works!</p>
+<div class="container">
+    <div class="card" style="width:100%;">
+        <div class="card-body">
+            <h3>Wings Form</h3>
+
+            <form [formGroup]='wingForm'>
+                <div formArrayName="wingsControllerArray">
+                    <div *ngFor="let wingsItem  of wingForm.controls['wingsControllerArray']['controls']; let i=index"
+                        [formGroupName]="i" class="row">
+                        <input formControlName="wingsName" class="form-control col-6" autocomplete="off"
+                            placeholder="Wings Name"
+                            [ngClass]="{'is-invalid': wingsItem.get('wingsName').errors}" required>
+
+                        <div class="invalid-feedback"
+                            *ngIf="wingsItem.get('wingsName').invalid && wingsItem.get('wingsName').dirty || wingsItem.get('wingsName').touched">
+                            <div *ngIf="wingsItem.get('wingsName').hasError('required')">
+                                Wings Name is required.
+                            </div>
+                        </div>
+                        <button class="btn btn-danger" (click)='removeWings(i)'><i class="fa fa-trash"></i></button>
+                        <br /><br />
+                    </div>
+                    <br />
+                </div>
+            </form>
+            <!-- <p> validation: {{ formName.status }}</p> -->
+            <button class="btn btn-primary" (click)='addInput()'><i class="fa fa-plus"></i></button>
+            <button [disabled]="wingForm.invalid" (click)="SaveWings()" class="btn btn-primary" style="margin-left: 20px;">Submit</button>
+        </div>
+    </div>
+</div>

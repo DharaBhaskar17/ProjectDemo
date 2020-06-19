@@ -1,58 +1,58 @@
 <div class="container">
     <div class="card" style="width:100%;">
         <div class="card-body">
-            <form [formGroup]="memberForm" class="form-inline">
-                <div class="row">
-                    <div formArrayName="memberDetails" class="form-group row"
-                        *ngFor="let memberData of memberForm.get('memberDetails')['controls']; let i = index;">
-                        <div [formGroupName]="i">
-                            <div class="row col-12" style="margin-right: 0px; margin-left: 21px;">
-                                <div class="">
-                                    <input type="text" placeholder="Member Name" formControlName="MemberName"
-                                        name="MemberName" class="form-control" autocomplete="off"
-                                        [ngClass]="{'is-invalid' : submitted && memberData.get('MemberName').errors}" />
+            <form [formGroup]="memberForm" class="row">
+                <div formArrayName="memberDetails"
+                    *ngFor="let memberData of memberForm.controls['memberDetails']['controls']; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="row col-12" style="margin-right: 0px; margin-left: 21px;">
+                            <div class="">
+                                <input type="text" placeholder="Member Name" formControlName="MemberName"
+                                    name="MemberName" class="form-control" autocomplete="off"
+                                    [ngClass]="{'is-invalid' : memberData.get('MemberName').errors}" required />
 
-                                    <div class="invalid-feedback"
-                                        *ngIf="submitted || memberData.get('MemberName').dirty || memberData.get('MemberName').touched">
-                                        <div *ngIf="memberData.get('MemberName').errors.required">
-                                            MemberName is required.</div>
-                                    </div>
-
-                                    <div class="invalid-feedback"
-                                        *ngIf="memberData.get('MemberName').dirty || memberData.get('MemberName').touched">
-                                        <div *ngIf="memberData.get('MemberName').errors.pattern">
-                                            Name is only in letter.</div>
-                                    </div>
+                                <div class="invalid-feedback"
+                                    *ngIf="memberData.get('MemberName').invalid && memberData.get('MemberName').dirty || memberData.get('MemberName').touched">
+                                    <div *ngIf="memberData.get('MemberName').hasError('required')">
+                                        MemberName is required.</div>
                                 </div>
-                                <div class="">
-                                    <input type="text" placeholder="Member Phone No" formControlName="MemberPhoneNo"
-                                        name="MemberPhoneNo" class="form-control" autocomplete="off" maxlength="10"
-                                        [ngClass]="{'is-invalid' : submitted && memberData.get('MemberPhoneNo').errors}" />
+
+                                <div class="invalid-feedback"
+                                    *ngIf="memberData.get('MemberName').dirty || memberData.get('MemberName').touched">
+                                    <div *ngIf="memberData.get('MemberName').hasError('pattern')">
+                                        Name is only in letter.</div>
+                                </div>
+                            </div>
+                            <div class="">
+                                <input type="text" placeholder="Member Phone No" formControlName="MemberPhoneNo" 
+                                    name="MemberPhoneNo" class="form-control" autocomplete="off" maxlength="10"
+                                    [ngClass]="{'is-invalid' : memberData.get('MemberPhoneNo').errors}" />
 
 
-                                    <div class="invalid-feedback"
-                                        *ngIf="submitted && memberData.get('MemberPhoneNo').errors.required">
-                                        Member Phone No is required.
-                                    </div>
-                                    <div class="invalid-feedback"
-                                        *ngIf="memberData.get('MemberPhoneNo').dirty || memberData.get('MemberPhoneNo').touched">
-                                        <div *ngIf="memberData.get('MemberPhoneNo').errors.pattern">
-                                            Only 10 Digit Allows
-                                        </div>
+                                <div class="invalid-feedback"
+                                    *ngIf="memberData.get('MemberPhoneNo').invalid && memberData.get('MemberPhoneNo').dirty || memberData.get('MemberPhoneNo').touched">
+                                    <div *ngIf="memberData.get('MemberPhoneNo').hasError('required')">
+                                        Member Phone No is required.</div>
+                                </div>
+
+                                <div class="invalid-feedback"
+                                    *ngIf="memberData.get('MemberPhoneNo').dirty || memberData.get('MemberPhoneNo').touched">
+                                    <div *ngIf="memberData.get('MemberPhoneNo').hasError('pattern')">
+                                        Only 10 Digit Allows
                                     </div>
                                 </div>
                             </div>
+                            <button class="btn btn-danger" (click)='removeMember(i)'><i class="fa fa-trash"></i></button>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <button (click)="AddRow()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
-                    </div>
                 </div>
-                <br />
+
+                <button (click)="AddRow()" class="btn btn-primary"><i class="fa fa-plus"></i></button>
                 <div class="col-md-12">
-                    <button type="submit" (click)="SaveMember()" class="btn btn-primary">Submit</button>
+                    <button [disabled]="memberForm.invalid" (click)="SaveMember()" class="btn btn-primary">Submit</button>
                 </div>
             </form>
+
             <br />
             <br />
             <table class="table table-bordered">
@@ -63,10 +63,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngIf="!memberData || memberData.length == 0">
+                    <tr *ngIf="!memberDataArr || memberDataArr.length == 0">
                         <td colspan="2" style="text-align: center;">No Records Found</td>
                     </tr>
-                    <tr *ngFor="let data of memberData">
+                    <tr *ngFor="let data of memberDataArr">
                         <td>{{data.MemberName}}</td>
                         <td>{{data.MemberPhoneNo}}</td>
                     </tr>

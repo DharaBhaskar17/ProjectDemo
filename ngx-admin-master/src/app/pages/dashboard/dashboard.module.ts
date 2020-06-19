@@ -30,10 +30,15 @@ import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
 import { FormsModule } from '@angular/forms';
+import { SocietyStatusComponent } from './society-status/society-status.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { InstructionComponent } from './instruction/instruction.component';
+
 
 @NgModule({
   imports: [
     FormsModule,
+    Ng2SmartTableModule,
     ThemeModule,
     NbCardModule,
     NbUserModule,
@@ -64,6 +69,8 @@ import { FormsModule } from '@angular/forms';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    SocietyStatusComponent,
+    InstructionComponent,
   ],
 })
 export class DashboardModule { }

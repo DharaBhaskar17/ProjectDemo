@@ -1,35 +1,38 @@
 import { NbMenuItem } from '@nebular/theme';
+import { title } from 'process';
+import { Component } from '@angular/core';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Profile',
-    //icon: 'shopping-cart-outline',
-    link: '/pages/Profile',
-    // home: true,
+    title: 'Dashboard',
+    link: '/pages/Dashboard',
+    home: true,
+    pathMatch: 'full',
   },
   {
-    title: 'Generate QR CODE',
-    //icon: '',
-    link: '/pages/Generate QR CODE',
+    title: 'Profile',
+    //icon: 'shopping-cart-outline',
+    link: '/pages/Profile'
+  },
+  {
+    title: 'GenerateQRCODE',
+    link: '/pages/GenerateQRCODE',
   },
   {
     title: 'Member',
-    //icon: 'layout-outline',
     link: '/pages/Member'
   },
   {
     title: 'AboutUs',
-    //icon: 'edit-2-outline',
     link: '/pages/AboutUs',
   },
   {
     title: 'Features',
-    //icon: 'edit-2-outline',
     link: '/pages/Features',
   },
   {
     title: 'Wings',
-    icon: 'keypad-outline',
+    // icon: 'keypad-outline',
     link: '/pages/Wings',
   },
   {
@@ -43,15 +46,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Register',
         link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
-      },
+      }
+      // {
+      //   title: 'Request Password',
+      //   link: '/auth/request-password',
+      // },
+      // {
+      //   title: 'Reset Password',
+      //   link: '/auth/reset-password',
+      // },
     ],
   },
 ];

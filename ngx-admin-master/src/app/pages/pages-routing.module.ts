@@ -9,12 +9,17 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
+      path: 'Dashboard',
+     // loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule);
+     component : DashboardComponent
+    },
+    {
       path: 'Member',
       loadChildren: () => import('./member/member.module')
         .then(m => m.MemberModule),
     },
     {
-      path: 'Generate QR CODE',
+      path: 'GenerateQRCODE',
       loadChildren: () => import('./generate-qrcode/generate-qrcode.module')
         .then(m => m.GenerateQRCodeModule),
     },

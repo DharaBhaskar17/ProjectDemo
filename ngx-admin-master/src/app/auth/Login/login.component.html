@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="wrapper">
+        <form class="form-signin" [formGroup]="loginForm">
+            <h2 class="form-signin-heading">Please login</h2>
+            <label>Enter Mobile No</label>
+            <input type="text" class="form-control" formControlName="MobileNo" name="MobileNo" autocomplete="off"
+                maxlength="10" [ngClass]="{'is-invalid' : lform.MobileNo.errors}" placeholder="Mobile No" required />
+            <div class="invalid-feedback"
+                *ngIf="lform.MobileNo.invalid && lform.MobileNo.dirty || lform.MobileNo.touched">
+                <div *ngIf="lform.MobileNo.hasError('required')">
+                    Mobile No is required.
+                </div>
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="lform.MobileNo.invalid && lform.MobileNo.dirty || lform.MobileNo.touched">
+                <div *ngIf="lform.MobileNo.hasError('pattern')">
+                    Mobile No is allow in 10 digit.
+                </div>
+            </div>
+            <br>
+            <button (click)="LoginData()" id="btnlogin" class="btn btn-md btn-primary  float-right"
+                type="submit">Continue</button>
+            <br>
+
+            <div class="otpdiv" *ngIf="show">
+                <label>Enter OTP</label>
+                <input type="text" class="form-control" formControlName="OTP" name="OTP" autocomplete="off"
+                    maxlength="6" [ngClass]="{'is-invalid' : lform.OTP.errors}" placeholder="Mobile No" required />
+                <div class="invalid-feedback" *ngIf="lform.OTP.invalid && lform.OTP.dirty || lform.OTP.touched">
+                    <div *ngIf="lform.OTP.hasError('required')">
+                        OTP is required.
+                    </div>
+                </div>
+                <div class="invalid-feedback" *ngIf="lform.OTP.invalid && lform.OTP.dirty || lform.OTP.touched">
+                    <div *ngIf="lform.OTP.hasError('pattern')">
+                        OTP is allow in 10 digit.
+                    </div>
+                </div>
+                <br>
+                <button class="btn btn-md btn-primary float-right" (click)="VerifyData()">Click to
+                    Verify</button>
+            </div>
+            <br>
+            <br>
+            <a href=""> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home Page</a>
+        </form>
+    </div>
+</div>

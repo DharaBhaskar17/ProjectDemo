@@ -6,6 +6,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MemberModule } from './member/member.module';
+import { WingsModule } from './wings/wings.module';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { MemberModule } from './member/member.module';
     ThemeModule,
     NbMenuModule,
     DashboardModule,
-    MemberModule
+    MemberModule,
+    WingsModule
   ],
   declarations: [
     PagesComponent,

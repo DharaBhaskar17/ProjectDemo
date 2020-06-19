@@ -8,41 +8,27 @@ import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 })
 export class MemberComponent implements OnInit {
 
-  memberData: any;
+
   memberForm: FormGroup;
   submitted = false;
 
-
-  constructor(private formbulider: FormBuilder) {
-    const memberItems = [];
-    memberItems.push(this.formbulider.group({
-      MemberName: [],
-      MemberPhoneNo: []
-    }));
-
-    // const phoneNoPattern = '^[0-9]{10}$';
-    // const memberNamePattern = '[a-zA-Z]+';
-    // memberItems.push(this.formbulider.group({
-    //   MemberName: ['', [Validators.required, Validators.pattern(memberNamePattern)]],
-    //   MemberPhoneNo: ['', [Validators.required, Validators.pattern(phoneNoPattern), Validators.minLength(10)]]
-    // }));
-
-    // this.memberForm = this.formbulider.group({
-    //   memberDetails: this.formbulider.array(memberItems)
-    // })
-  }
+  constructor(private formbulider: FormBuilder) { }
+  memberDataArr: any;
 
   ngOnInit(): void {
+
+    this.memberForm = this.formbulider.group({
+      memberDetails: this.formbulider.array([this.CreateNewMember()])
+    })
   }
+
 
   get f() {
     return this.memberForm.controls;
   }
 
   AddRow() {
-    const memberDetail = this.memberForm.get('memberDetails') as FormArray;
-    memberDetail.push(this.CreateNewMember());
-
+    (this.memberForm.controls['memberDetails'] as FormArray).push(this.CreateNewMember());
   }
 
   removePerson(i) {
@@ -50,70 +36,35 @@ export class MemberComponent implements OnInit {
   }
 
   CreateNewMember() {
-    return this.formbulider.group({
-      MemberName: [],
-      MemberPhoneNo: []
-    })
-
-    // const phoneNoPattern = '^[0-9]{10}$';
-    // const memberNamePattern = '[a-zA-Z]+';
-    // return this.formbulider.group({
-    //   MemberName: ['', [Validators.required, Validators.pattern(memberNamePattern)]],
-    //   MemberPhoneNo: ['', [Validators.required, Validators.pattern(phoneNoPattern), Validators.maxLength(10)]]
-    // })
-
-  }
-
-
-  SaveMember() {
-    const memberItems = [];
-    const memberDetail = this.memberForm.get('memberDetails') as FormArray;
     const phoneNoPattern = '^[0-9]{10}$';
     const memberNamePattern = '[a-zA-Z]+';
+    return this.formbulider.group({
+      MemberName: ['', [Validators.required, Validators.pattern(memberNamePattern)]],
+      MemberPhoneNo: ['', [Validators.required, Validators.pattern(phoneNoPattern), Validators.maxLength(10)]]
+    })
+  }
+  
 
-    for (let index = 0; index < memberDetail.controls.length; index++) {
-      const element = memberDetail.controls[index];
-      let item = element['controls'];
-      if (!item.MemberName.value || !item.MemberPhoneNo.value) {
-        let memberNameValue = item.MemberName;
-        let memberPhoneNoValue = item.MemberPhoneNo;
-
-        memberItems.push(this.formbulider.group({
-          memberNameValue: ['', [Validators.required, Validators.pattern(memberNamePattern)]],
-          memberPhoneNoValue: ['', [Validators.required, Validators.pattern(phoneNoPattern), Validators.minLength(10)]]
-        }))
-      }
-      this.memberForm = this.formbulider.group({
-        memberDetails: this.formbulider.array(memberItems)
-      })
-    }
-
-    // this.memberForm = this.formbulider.group({
-    //   memberDetails: this.formbulider.array(memberItems)
-    // })
-    // const memberItems = [];
-    // const phoneNoPattern1 = '^[0-9]{10}$';
-    // const memberNamePattern1= '[a-zA-Z]+';
-    // memberItems.push(this.formbulider.group({
-    //   MemberName: ['', [Validators.required, Validators.pattern(memberNamePattern1)]],
-    //   MemberPhoneNo: ['', [Validators.required, Validators.pattern(phoneNoPattern1), Validators.minLength(10)]]
-    // }));
-
-    // this.memberForm = this.formbulider.group({
-    //   memberDetails: this.formbulider.array(memberItems)
-    // })
-
+  SaveMember() {
     this.submitted = true;
     if (this.memberForm.invalid) {
       return;
     }
     else {
-      let item = {};
-      item = {
-        MemberName: this.memberForm.controls.MemberName.value,
-        MemberPhoneNo: this.memberForm.controls.MemberPhoneNo.value,
+      this.memberDataArr = [];
+      let item = this.memberForm.controls.memberDetails['controls'];
+      for (let i = 0; i < item.length; i++) {
+        const itemValue = item[i];
+        let itemObj = {
+          MemberName: itemValue.controls.MemberName.value,
+          MemberPhoneNo: itemValue.controls.MemberPhoneNo.value
+        }
+        this.memberDataArr.push(itemObj);
       }
-      this.memberData.push(item);
+      // this.memberDataArr = [{
+      //   MemberName: this.memberForm.controls.MemberName.value,
+      //   MemberPhoneNo: this.memberForm.controls.MemberPhoneNo.value
+      // }]
     }
   }
 }
