@@ -6,13 +6,18 @@ import { RegisterComponent } from './auth/register/register.component';
 
 export const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'pages',
+    pathMatch: 'full'
+  },
+  {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
   },
   {
     path: '',
-    loadChildren: () => import('./auth/auth.module') .then(m => m.AuthModule),
-   
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+
   },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },

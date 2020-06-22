@@ -1,28 +1,6 @@
 <div class="container">
     <h1 id="main-title">Sign Up</h1>
-    <!-- <form [formGroup]="registerForm">
-        <div>
-            <label for="text" class="">Username</label>
-            <input required type="text" class="form-control" name="username" formContolName="UserName" autocomplete="off"
-                [ngClass]="{'is-invalid' : rform.UserName.errors}" placeholder="Enter UserName" />
-            <div class="invalid-feedback" *ngIf="rform.UserName.invalid && rform.UserName.dirty || rform.UserName.touched">
-                <div *ngIf="rform.UserName.errors.required">
-                    User Name is required.</div>
-            </div>
-            <div class="invalid-feedback" *ngIf="rform.UserName.invalid && rform.UserName.dirty || rform.UserName.touched">
-                <div *ngIf="rform.UserName.hasError('pattern')">
-                    User Name is Allows only digit.</div>
-            </div>
-        </div>
-        <div>
-            <label for="text" class="">Socity name</label>
-            <input required type="text" class="form-control" name="firstname" placeholder="Enter Socity Name">
-        </div>
-        <br><br>
-        <button [disabled]="registerForm.invalid" class="btn btn-sucess btn-lg">Submit</button>
-
-    </form> -->
-
+   
     <form [formGroup]="registerForm">
         <div class="form-group">
             <label>User Name</label>

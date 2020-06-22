@@ -12,26 +12,43 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   MobileNo: '';
-  show = false;
+  OTPValue: '';
+  isVisibleContinueButton: boolean = false;
+  showOtpDiv = false;
+  ShowRegisterDiv = false;
+  registerForm: FormGroup;
+  UserName: '';
+  SocityName: '';
+
 
   constructor(private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
-    document.getElementById('btnlogin').removeAttribute('disabled');
+    // document.getElementById('btnlogin').removeAttribute('disabled');
     const mobileNoPattern = '^[0-9]{10}$';
-    const OTPPattern = '^[0-9]{10}$';
     this.loginForm = this.formBuilder.group({
       MobileNo: ['', [Validators.required, Validators.pattern(mobileNoPattern), Validators.maxLength(10)]],
-      OTP: ['', [Validators.required, Validators.pattern(OTPPattern), Validators.maxLength(6)]]
+      otpvalue: ['', [Validators.required, Validators.pattern(mobileNoPattern), Validators.maxLength(6)]]
     });
+
+
+    const userNamePattern = '[a-zA-Z]+';
+    this.registerForm = this.formBuilder.group({
+      UserName: ['', [Validators.required, Validators.pattern(userNamePattern)]],
+      SocityName: ['', [Validators.required]]
+    })
   }
 
   get lform() {
     return this.loginForm.controls;
   }
 
+  get otp(){
+    return this.loginForm.get('otpvalue');
+  }
+
   VerifyData() {
-    this.router.navigate(['auth/register']);
+    this.ShowRegisterDiv = true;
     if (this.loginForm.invalid) {
       return
     }
@@ -39,11 +56,15 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['auth/register']);
     }
   }
+  get f() {
+    return this.registerForm.controls;
+  }
+
+
 
   LoginData() {
-    debugger
-    document.getElementById('btnlogin').setAttribute('disabled', 'false');
-    this.show = true;
+    this.isVisibleContinueButton = true;
+    this.showOtpDiv = true;
   }
 
 }

@@ -3,8 +3,10 @@ import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeServ
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { title } from 'process';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -38,14 +40,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   currentTheme = 'default';
 
-  userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
+  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
   constructor(private sidebarService: NbSidebarService,
-              private menuService: NbMenuService,
-              private themeService: NbThemeService,
-              private userService: UserData,
-              private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+    private router: Router,
+    private menuService: NbMenuService,
+    private themeService: NbThemeService,
+    private userService: UserData,
+    private layoutService: LayoutService,
+    private breakpointService: NbMediaBreakpointsService) {
+    this.menuService.onItemClick().subscribe((event) => {
+      this.ProfileDetail(event.item.title);
+    })
+  }
+
+  ProfileDetail(event) {
+    //console.log(event + 'clicked');
+    if (event == 'Profile') {
+      this.router.navigate(['/pages/Profile'])
+    }
   }
 
   ngOnInit() {

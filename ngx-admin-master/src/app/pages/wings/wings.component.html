@@ -7,25 +7,28 @@
                 <div formArrayName="wingsControllerArray">
                     <div *ngFor="let wingsItem  of wingForm.controls['wingsControllerArray']['controls']; let i=index"
                         [formGroupName]="i" class="row">
-                        <input formControlName="wingsName" class="form-control col-6" autocomplete="off"
-                            placeholder="Wings Name"
-                            [ngClass]="{'is-invalid': wingsItem.get('wingsName').errors}" required>
+                        <div class="col-6">
+                            <input formControlName="wingsName" class="form-control col-12" autocomplete="off"
+                                placeholder="Wings Name" [ngClass]="{'is-invalid': wingsItem.get('wingsName').errors}"
+                                required>
 
-                        <div class="invalid-feedback"
-                            *ngIf="wingsItem.get('wingsName').invalid && wingsItem.get('wingsName').dirty || wingsItem.get('wingsName').touched">
-                            <div *ngIf="wingsItem.get('wingsName').hasError('required')">
-                                Wings Name is required.
+                            <div class="invalid-feedback"
+                                *ngIf="wingsItem.get('wingsName').invalid && wingsItem.get('wingsName').dirty || wingsItem.get('wingsName').touched">
+                                <div *ngIf="wingsItem.get('wingsName').hasError('required')">
+                                    Wings Name is required.
+                                </div>
                             </div>
                         </div>
-                        <button class="btn btn-danger" (click)='removeWings(i)'><i class="fa fa-trash"></i></button>
-                        <br /><br />
+                        <button class="btn btn-danger" style="margin-bottom: 20px;" (click)='removeWings(i)'><i class="fa fa-trash"></i></button>
+                        <!-- <br /><br /> -->
                     </div>
                     <br />
                 </div>
             </form>
             <!-- <p> validation: {{ formName.status }}</p> -->
             <button class="btn btn-primary" (click)='addInput()'><i class="fa fa-plus"></i></button>
-            <button [disabled]="wingForm.invalid" (click)="SaveWings()" class="btn btn-primary" style="margin-left: 20px;">Submit</button>
+            <button [disabled]="wingForm.invalid" (click)="SaveWings()" class="btn btn-primary"
+                style="margin-left: 20px;">Submit</button>
         </div>
     </div>
 </div>

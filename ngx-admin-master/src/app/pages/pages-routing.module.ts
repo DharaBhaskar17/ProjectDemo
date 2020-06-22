@@ -8,6 +8,11 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
+    // {
+    //   path: '',
+    //   redirectTo: '/Dashboard',
+    //   pathMatch: 'full'
+    // },
     {
       path: 'Dashboard',
      // loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule);

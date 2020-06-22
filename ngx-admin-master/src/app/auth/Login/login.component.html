@@ -1,48 +1,124 @@
 <div class="container">
-    <div class="wrapper">
-        <form class="form-signin" [formGroup]="loginForm">
-            <h2 class="form-signin-heading">Please login</h2>
-            <label>Enter Mobile No</label>
-            <input type="text" class="form-control" formControlName="MobileNo" name="MobileNo" autocomplete="off"
-                maxlength="10" [ngClass]="{'is-invalid' : lform.MobileNo.errors}" placeholder="Mobile No" required />
-            <div class="invalid-feedback"
-                *ngIf="lform.MobileNo.invalid && lform.MobileNo.dirty || lform.MobileNo.touched">
-                <div *ngIf="lform.MobileNo.hasError('required')">
-                    Mobile No is required.
-                </div>
-            </div>
-            <div class="invalid-feedback"
-                *ngIf="lform.MobileNo.invalid && lform.MobileNo.dirty || lform.MobileNo.touched">
-                <div *ngIf="lform.MobileNo.hasError('pattern')">
-                    Mobile No is allow in 10 digit.
-                </div>
-            </div>
-            <br>
-            <button (click)="LoginData()" id="btnlogin" class="btn btn-md btn-primary  float-right"
-                type="submit">Continue</button>
-            <br>
+    <div class="row">
+        <div class="col-6">
+            <div class="wrapper">
+                <form class="form-signin" [formGroup]="loginForm">
+                    <h2 class="form-signin-heading">Please login</h2>
+                    <label>Enter Mobile No</label>
+                    <input type="text" class="form-control" formControlName="MobileNo" name="MobileNo"
+                        autocomplete="off" maxlength="10" [ngClass]="{'is-invalid' : lform.MobileNo.errors}"
+                        placeholder="Mobile No" required />
+                    <div class="invalid-feedback"
+                        *ngIf="lform.MobileNo.invalid && lform.MobileNo.dirty || lform.MobileNo.touched">
+                        <div *ngIf="lform.MobileNo.hasError('required')">
+                            Mobile No is required.
+                        </div>
+                    </div>
+                    <div class="invalid-feedback"
+                        *ngIf="lform.MobileNo.invalid && lform.MobileNo.dirty || lform.MobileNo.touched">
+                        <div *ngIf="lform.MobileNo.hasError('pattern')">
+                            Mobile No is allow in 10 digit.
+                        </div>
+                    </div>
+                    <br>
 
-            <div class="otpdiv" *ngIf="show">
-                <label>Enter OTP</label>
-                <input type="text" class="form-control" formControlName="OTP" name="OTP" autocomplete="off"
-                    maxlength="6" [ngClass]="{'is-invalid' : lform.OTP.errors}" placeholder="Mobile No" required />
-                <div class="invalid-feedback" *ngIf="lform.OTP.invalid && lform.OTP.dirty || lform.OTP.touched">
-                    <div *ngIf="lform.OTP.hasError('required')">
-                        OTP is required.
+                    <!-- <div *ngIf="ShowContinueButton" (click)="LoginData()"></div> -->
+                    <button *ngIf="!isVisibleContinueButton" (click)="LoginData()"
+                        class="btn btn-md btn-primary  float-right">Continue</button>
+
+                    <br>
+                    <div class="otpdiv" *ngIf="showOtpDiv">
+                        <label>Enter OTP</label>
+                        <input type="text" class="form-control" formControlName="otpvalue" name="otpvalue"
+                            autocomplete="off" maxlength="6" [ngClass]="{'is-invalid' : lform.otpvalue.errors}"
+                            placeholder="OTP" required />
+                        <div class="invalid-feedback"
+                            *ngIf="lform.otpvalue.invalid && lform.otpvalue.dirty || lform.otpvalue.touched">
+                            <div *ngIf="lform.otpvalue.hasError('required')">
+                                OTP is required.
+                            </div>
+                        </div>
+                        <!-- <div class="invalid-feedback"
+                            *ngIf="lform.otpvalue.invalid && lform.otpvalue.dirty || lform.otpvalue.touched">
+                            <div *ngIf="lform.otpvalue.hasError('pattern')">
+                                OTP is allow in 6 digit.
+                            </div>
+                        </div> [disabled]="loginForm.invalid" -->
+                        <br>
+                        <button  class="btn btn-md btn-primary float-right" (click)="VerifyData()">Click to
+                            Verify</button>
                     </div>
-                </div>
-                <div class="invalid-feedback" *ngIf="lform.OTP.invalid && lform.OTP.dirty || lform.OTP.touched">
-                    <div *ngIf="lform.OTP.hasError('pattern')">
-                        OTP is allow in 10 digit.
-                    </div>
-                </div>
-                <br>
-                <button class="btn btn-md btn-primary float-right" (click)="VerifyData()">Click to
-                    Verify</button>
+                    <br>
+                    <br>
+                    <a href=""> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home Page</a>
+                </form>
             </div>
-            <br>
-            <br>
-            <a href=""> <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home Page</a>
-        </form>
+        </div>
+        <div class="col-6">
+            <div class="warpperRegister" style="margin-bottom: 30px;">
+                <form class="form-signin" [formGroup]="registerForm" *ngIf="ShowRegisterDiv">
+                    <h2 class="form-signin-heading">Please Sign Up</h2>
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" formControlName="UserName" class="form-control" placeholder="User Name"
+                            [ngClass]="{ 'is-invalid': f.UserName.errors }" required />
+                        <div *ngIf="f.UserName.invalid && (f.UserName.dirty || f.UserName.touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.UserName.hasError('required')">User Name is required</div>
+                        </div>
+                        <div *ngIf="f.UserName.invalid && (f.UserName.dirty || f.UserName.touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.UserName.hasError('pattern')">User Name is only in letter.</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Socity Name</label>
+                        <input type="text" class="form-control" formControlName="SocityName"
+                            [ngClass]="{ 'is-invalid': f.SocityName.errors }" required placeholder="Socity Name" />
+                        <div *ngIf="f.SocityName.invalid && (f.SocityName.dirty || f.SocityName.touched)"
+                            class="invalid-feedback">
+                            <div *ngIf="f.SocityName.hasError('required')">Socity Name is required</div>
+                        </div>
+                    </div>
+                    <br>
+                    <div>
+                        <button [disabled]="registerForm.invalid"
+                            class="btn btn-lg btn-primary float-center">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- <div class="container">
+    <div class="warpper">
+        <form class="form-signin" [formGroup]="registerForm" *ngIf="ShowRegisterDiv">
+            <h2 class="form-signin-heading">Please Sign Up</h2>
+            <div class="form-group">
+                <label>User Name</label>
+                <input type="text" formControlName="UserName" class="form-control" placeholder="User Name"
+                    [ngClass]="{ 'is-invalid': f.UserName.errors }" required />
+                <div *ngIf="f.UserName.invalid && (f.UserName.dirty || f.UserName.touched)" class="invalid-feedback">
+                    <div *ngIf="f.UserName.hasError('required')">User Name is required</div>
+                </div>
+                <div *ngIf="f.UserName.invalid && (f.UserName.dirty || f.UserName.touched)" class="invalid-feedback">
+                    <div *ngIf="f.UserName.hasError('pattern')">User Name is only in letter.</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Socity Name</label>
+                <input type="text" class="form-control" formControlName="SocityName"
+                    [ngClass]="{ 'is-invalid': f.SocityName.errors }" required placeholder="Socity Name" />
+                <div *ngIf="f.SocityName.invalid && (f.SocityName.dirty || f.SocityName.touched)"
+                    class="invalid-feedback">
+                    <div *ngIf="f.SocityName.hasError('required')">Socity Name is required</div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <button [disabled]="registerForm.invalid" class="btn btn-lg btn-primary float-center">Register</button>
+            </div>
+        </form>
+    </div>
+</div> -->

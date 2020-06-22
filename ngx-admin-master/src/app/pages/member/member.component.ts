@@ -35,6 +35,10 @@ export class MemberComponent implements OnInit {
     (<FormArray>this.memberForm.get('memberDetails')).removeAt(i);
   }
 
+  // removeWings(i) {
+  //   this.memberForm.controls['memberDetails'].splice(i, 1)
+  // }
+
   CreateNewMember() {
     const phoneNoPattern = '^[0-9]{10}$';
     const memberNamePattern = '[a-zA-Z]+';
